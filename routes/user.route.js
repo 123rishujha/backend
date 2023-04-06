@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 const { authorise } = require("../middlewares/authenticationeMiddleware");
 // const session = require('express-session')
 
@@ -50,7 +50,7 @@ userRoute.post("/login",async(req,res)=>{
 
                if(result){
                 const token = jwt.sign({"userId":findUser._id},"key",{ expiresIn: '1h' }); //,{ expiresIn: '1h' }
-                res.cookie("cookie",token,{
+                res.cookie("logincookie",token,{
                     expires:new Date(Date.now()+900000),
                     httpOnly:true
                 });
@@ -71,7 +71,7 @@ userRoute.post("/login",async(req,res)=>{
 
 //logout -> post
 userRoute.get("/logout",authorise,async(req,res)=>{
-    res.clearCookie("cookie");
+    res.clearCookie("logincookie");
     res.status(200).send({success:true,message:"logout successful"});
 });
 
