@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken")
 
 const authorise = (req,res,next) =>{
 
-    // const token = req.cookies.cookie_token; //previou
-    const token = req.cookies.cookie_token;
+    // const token = req.cookies.cookie; //previou
+    const token = req.cookies.cookie;
     console.log("token",token);
     
     if(token){

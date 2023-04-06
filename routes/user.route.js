@@ -50,7 +50,10 @@ userRoute.post("/login",async(req,res)=>{
 
                if(result){
                 const token = jwt.sign({"userId":findUser._id},"key",{ expiresIn: '1h' }); //,{ expiresIn: '1h' }
-                res.cookie("cookie_token",token,{httpOnly:true});
+                res.cookie("cookie",token,{
+                    expires:new Date(Date.now()+900000),
+                    httpOnly:true
+                });
                 res.status(200).send({success:true,message:'login successfull'});
                }else{
                 res.status(401).send({success:false,message:"wrong credentils"});
@@ -68,7 +71,7 @@ userRoute.post("/login",async(req,res)=>{
 
 //logout -> post
 userRoute.get("/logout",authorise,async(req,res)=>{
-    res.clearCookie("cookie_token");
+    res.clearCookie("cookie");
     res.status(200).send({success:true,message:"logout successful"});
 });
 

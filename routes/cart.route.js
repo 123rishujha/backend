@@ -11,7 +11,7 @@ const cartRoute = express.Router();
 
 //read -> get all the cart product;
 cartRoute.get("/",async(req,res)=>{
-    const token = req.cookies.cookie_token;
+    const token = req.cookies.cookie;
     const decoded = jwt.verify(token,"key");
     console.log(decoded.userId,"from cart get route");
     console.log(req.query);
@@ -43,7 +43,7 @@ cartRoute.get("/",async(req,res)=>{
 
 //create -> add product to cart;
 cartRoute.post("/add",async(req,res)=>{
-    const token = req.cookies.cookie_token;
+    const token = req.cookies.cookie;
     const decoded = jwt.verify(token,"key");
     console.log(decoded.userId,"from cart post route");
     const {_id,title,brand,description,price,discount,inStock,soldBy,imageUrls,rating,features,offers,category,subCategory,userId} = req.body;
@@ -61,7 +61,7 @@ cartRoute.post("/add",async(req,res)=>{
 //update -> update the quantity of product;
 cartRoute.patch('/update/:itemId',async(req,res)=>{
 
-    const LoggedInUserToken =  req.cookies.cookie_token; // jwt token stored in jwt
+    const LoggedInUserToken =  req.cookies.cookie; // jwt token stored in jwt
     const { itemId } = req.params; // cart item id 
     const {qtn} = req.body; // updated quantity of cartItem
     // console.log(LoggedInUserToken);
@@ -89,7 +89,7 @@ cartRoute.patch('/update/:itemId',async(req,res)=>{
 
 //delete -> delete the product;
 cartRoute.delete('/delete/:itemId',async(req,res)=>{
-    const LoggedInUserToken =  req.cookies.cookie_token; // passing via headers for authorizatin
+    const LoggedInUserToken =  req.cookies.cookie; // passing via headers for authorizatin
     const { itemId } = req.params; // cart item id 
 
     // console.log(LoggedInUserToken);
